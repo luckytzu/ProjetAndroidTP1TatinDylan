@@ -33,7 +33,10 @@ class AndroidVersionViewModel : ViewModel() {
                                 itemsOfGroup.map { each ->
                                     ItemUi.Item(
                                         versionName = each.versionName,
-                                        versionNumber = each.versionCode
+                                        versionNumber = each.versionCode,
+                                        versionUse = each.versionUse,
+                                        versionReleaseData = each.versionReleaseData,
+                                        versionApiLevel = each.versionApiLevel
                                     )
                                 }
                             )
@@ -50,13 +53,15 @@ class AndroidVersionViewModel : ViewModel() {
         viewModelScope.launch(Dispatchers.IO) {
 
             val random = Random.nextInt(1, 15)
+            val randomVersion = Random.nextInt(0, 9)
+            val randomApi = Random.nextInt(1, 30)
 
             val newItem = MyAndroidModelData(
                 versionName = "Android $random",
-                versionCode = "$random.0",
+                versionCode = "$random.$randomVersion",
                 versionUse = random % 2 == 0,
-                versionReleaseData = "20${10 + random}-01-01",
-                versionApiLevel = 20 + random
+                versionReleaseData = "20${10 + randomVersion}-01-01",
+                versionApiLevel = randomApi
             )
 
             androidVersionRepository.insertAndroidVersion(newItem)

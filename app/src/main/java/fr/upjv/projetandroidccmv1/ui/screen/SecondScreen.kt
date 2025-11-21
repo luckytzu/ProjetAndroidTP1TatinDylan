@@ -187,7 +187,7 @@ fun SecondScreen(navigateBack: () -> Unit) {
         topBar = {
             CenterAlignedTopAppBar(
                 title = {
-                    Text(text = "Navigation example")
+                    Text(text = "Version Android")
                 },
                 navigationIcon = {
                     IconButton(onClick = navigateBack) {
@@ -250,11 +250,30 @@ fun MyScreenContent(
                         AnimatedHeader(title = item.title)
                     }
 
-                    is ItemUi.Item -> Text(
-                        text = "Version : ${item.versionNumber}",
-                        style = MaterialTheme.typography.bodyLarge,
-                        modifier = Modifier.padding(start = 16.dp, top = 2.dp, bottom = 2.dp)
-                    )
+                    is ItemUi.Item -> Column(
+                        modifier = Modifier
+                            .padding(start = 16.dp, top = 4.dp, bottom = 4.dp)
+                    ) {
+                        Text(
+                            text = "${item.versionName} : ${item.versionNumber}",
+                            style = MaterialTheme.typography.bodyLarge.copy(
+                                fontWeight = FontWeight.Bold,
+                                color = Color.Black
+                            )
+                        )
+                        Text(
+                            text = "API Recommandée : ${item.versionApiLevel}",
+                            style = MaterialTheme.typography.bodyMedium
+                        )
+                        Text(
+                            text = "Date de sortie : ${item.versionReleaseData}",
+                            style = MaterialTheme.typography.bodyMedium
+                        )
+                        Text(
+                            text = "Version Bug ? : ${if (item.versionUse) "Oui" else "Non"}",
+                            style = MaterialTheme.typography.bodyMedium
+                        )
+                    }
 
                     is ItemUi.Footer -> {
                         Column(
