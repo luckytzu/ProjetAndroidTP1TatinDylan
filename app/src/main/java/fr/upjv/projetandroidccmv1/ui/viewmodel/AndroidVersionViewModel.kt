@@ -40,6 +40,7 @@ class AndroidVersionViewModel : ViewModel() {
                                     )
                                 }
                             )
+                            add(ItemUi.Footer(count = itemsOfGroup.size))
                         }
                     }
             }
