@@ -73,11 +73,14 @@ fun MainScreen(
     }
 
     Scaffold(
+        containerColor = MaterialTheme.colorScheme.background,
         topBar = {
             Text(
                 text = "Bienvenue sur l'Application CCM",
-                style = MaterialTheme.typography.titleLarge,
-                fontWeight = FontWeight.Bold,
+                style = MaterialTheme.typography.titleLarge.copy(
+                    color = MaterialTheme.colorScheme.primary,
+                    fontWeight = FontWeight.ExtraBold
+                ),
                 modifier = Modifier.padding(16.dp)
             )
         }
@@ -92,23 +95,29 @@ fun MainScreen(
         ) {
             Text(
                 text = "Récapitulatif des versions Android",
-                style = MaterialTheme.typography.headlineSmall,
+                style = MaterialTheme.typography.headlineMedium.copy(
+                    fontWeight = FontWeight.Bold,
+                    color = MaterialTheme.colorScheme.secondary
+                ),
                 modifier = Modifier.graphicsLayer(alpha = alpha)
             )
 
-            Spacer(modifier = Modifier.height(32.dp))
+            Spacer(modifier = Modifier.height(24.dp))
 
             if (isLoading) {
                 CircularProgressIndicator(
-                    modifier = Modifier.size(40.dp),
-                    color = MaterialTheme.colorScheme.primary
+                    modifier = Modifier.size(50.dp),
+                    color = MaterialTheme.colorScheme.primary,
+                    strokeWidth = 6.dp
                 )
             } else {
                 Text(
                     text = "Cliquez ci-dessous pour explorer les versions groupées et leurs détails.",
-                    style = MaterialTheme.typography.bodyMedium,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
-                    modifier = Modifier.padding(horizontal = 16.dp)
+                    style = MaterialTheme.typography.bodyLarge.copy(
+                        color = MaterialTheme.colorScheme.onBackground
+                    ),
+                    modifier = Modifier.padding(horizontal = 16.dp),
+                    textAlign = androidx.compose.ui.text.style.TextAlign.Center
                 )
 
                 Spacer(modifier = Modifier.height(32.dp))
@@ -117,10 +126,21 @@ fun MainScreen(
                     onClick = {
                         isLoading = true
                     },
-                    content = {
-                        Text("Aller sur le second écran", fontWeight = FontWeight.SemiBold)
-                    }
-                )
+                    shape = androidx.compose.foundation.shape.RoundedCornerShape(16.dp),
+                    modifier = Modifier
+                        .height(56.dp)
+                        .fillMaxSize(0.7f),
+                    colors = androidx.compose.material3.ButtonDefaults.buttonColors(
+                        containerColor = MaterialTheme.colorScheme.primary,
+                        contentColor = MaterialTheme.colorScheme.onPrimary
+                    )
+                ) {
+                    Text(
+                        "Aller sur le second écran",
+                        fontWeight = FontWeight.SemiBold,
+                        style = MaterialTheme.typography.titleMedium
+                    )
+                }
             }
         }
     }
